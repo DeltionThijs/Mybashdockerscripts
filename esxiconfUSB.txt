@@ -1,0 +1,13 @@
+https://www.it-react.com/index.php/2020/04/26/how-to-add-a-usb-disk-as-vmfs-datastore-in-esxi-6-7/
+
+
+partedUtil getptbl /dev/disks/mpx.vmhba32:C0:T0:L0
+
+partedUtil mklabel /dev/disks/mpx.vmhba32:C0:T0:L0
+
+eval expr $(partedUtil getptbl /dev/disks/mpx.vmhba32:C0:T0:L0 | tail -1 | awk '{print $1 " \\* " $2 " \\* " $3}') - 1
+
+
+partedUtil setptbl /dev/disks/mpx.vmhba32:C0:T0:L0 gpt "1 2048 976768064 AA31E02A400F11DB9590000C2911D1B8 0"
+
+vmkfstools -C vmfs6 -S USB-Storage /dev/disks/mpx.vmhba32:C0:T0:L0:1

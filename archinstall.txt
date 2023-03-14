@@ -1,0 +1,40 @@
+
+
+loadkeys en
+
+timedatectl set-ntp true
+
+cfdisk
+
+/dev/sda1 EXT4
+/dev/sda2 SWAP
+/dev/sda3 FAT32
+
+mkfs.ext4 /dev/sda1
+mkswap    /dev/sda2
+mkfs.fat -F 32 /dev/sda3
+
+mount /dev/sda1 /mnt 
+mkdir -p /mnt/boot/efi
+mount /dev/sda3 /mnt/boot/efi
+swapon /dev/sda2 
+
+pacstrap /mnt base linux linux-firmware sudo  nano networkmanager efibootmgr grub intel-ucode
+
+genfstab -U /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt 
+
+ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+
+hwclock --systohc
+
+vim /etc/locale.gen 
+locale-gen 
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "KEYMAP="en"" >> /etc/vconsole.conf
+systemctl enable NetworkManager
+useradd -m -G wheel -s /bin/bash thijs
+passwd thijs
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg

@@ -1,13 +1,20 @@
 import requests
 import re
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 #?query=docker port:4243 is for searching docker containers on port 4243 in that url
-url = "https://api.criminalip.io/v1/banner/search?query=docker port:4243&offset=0"
+port="4243"
+keyword="docker"
+url = f"https://api.criminalip.io/v1/banner/search?query={keyword} port:{port}&offset=0"
 
 payload = {}
 #API key to query data from criminalIP
 headers = {
-    "x-api-key": "LWRK89CgBen0k0BGxprqO0Nc7tHZMTamTCulT65Ep8e9req2mfAMHD3cscLe"
+    "x-api-key": os.environ["API_KEY"]
 }
+
 # The response from criminalIP
 response = requests.request("GET", url, headers=headers, data=payload)
 

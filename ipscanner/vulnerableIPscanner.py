@@ -34,3 +34,5 @@ ip_addresses = re.findall(ip_pattern, text)
 with open("output.txt", "w") as f:
     for ip in ip_addresses:
         text = f.write(ip + "\n")
+        response = os.system(f'ping {ip}')
+        print(response)

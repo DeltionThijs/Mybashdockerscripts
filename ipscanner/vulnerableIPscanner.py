@@ -30,7 +30,7 @@ with open("output.txt", "r") as f:
 ip_pattern = re.compile(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b")
 ip_addresses = re.findall(ip_pattern, text)
 
-# Writing it again to output.txt
+# Writing it again to output.txt and ping final found IP's
 with open("output.txt", "w") as f:
     for ip in ip_addresses:
         text = f.write(ip + "\n")

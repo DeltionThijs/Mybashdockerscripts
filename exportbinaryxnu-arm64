@@ -1,0 +1,11 @@
+XNU ios 12.1 variabelen bash
+
+
+export PATH=$PATH:/iosbinpack64/bin/
+export PATH=$PATH:/iosbinpack64/sbin/
+export PATH=$PATH:/iosbinpack64/usr/bin/
+export PATH=$PATH:/iosbinpack64/usr/sbin/
+export PATH=$PATH:/bin/
+
+
+find / -type f -name ssh 2>/dev/null  >> commando's vinden   
